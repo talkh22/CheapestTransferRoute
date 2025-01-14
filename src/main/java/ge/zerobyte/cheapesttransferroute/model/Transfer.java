@@ -9,24 +9,24 @@ package ge.zerobyte.cheapesttransferroute.model;
 
 public class Transfer {
 
-    private int weight;
-    private int cost;
+    private double weight;
+    private double cost;
 
 
-    public Transfer(int weight, int cost) {
+    public Transfer(double weight, double cost) {
         this.weight = weight;
         this.cost = cost;
     }
 
 
-    public int getCost() {
+    public double getCost() {
         return this.cost;
     }
     public void setCost(int cost) {
         this.cost = cost;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return this.weight;
     }
 

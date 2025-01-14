@@ -17,6 +17,8 @@ import java.util.List;
 @Service
 public class TransferService {
 
+    private static final int SCALING_FACTOR = 100;
+
     /**
      * This method performs backtracking on the dynamic programming table to find the selected
      * transfers that make up the optimal solution.
@@ -27,7 +29,7 @@ public class TransferService {
      * @param transfers The list of available transfers.
      * @return A list of selected transfers that form the optimal solution.
      */
-    private List<Transfer> getTransfersFromTable(int[][] tableOfCosts, List<Transfer> transfers) {
+    private List<Transfer> getTransfersFromTable(double[][] tableOfCosts, List<Transfer> transfers) {
         ArrayList<Transfer> bestTransfers = new ArrayList<>();
         int r = tableOfCosts.length - 1;
         int c = tableOfCosts[0].length - 1;
@@ -37,7 +39,7 @@ public class TransferService {
                 r--;
             } else {
                 bestTransfers.add(transfers.get(r-1));
-                c -= transfers.get(r-1).getWeight();
+                c -= (int) transfers.get(r-1).getWeight() * SCALING_FACTOR;
                 r--;
             }
         }
@@ -50,27 +52,29 @@ public class TransferService {
     /**
      * Calculates the optimal combination of transfers that maximizes the total cost while
      * ensuring the total weight is within the max weight limit using the 0/1 Knapsack algorithm.
+     * The method is also considering that the weight values can be specified with up to two decimal places,
+     * because it uses SCALING_FACTOR to scale weights.
      *
      * @param transfers List of available transfers.
      * @param maxWeight The maximum weight limit that can be transferred.
      * @return A list of selected transfers that maximize the total cost within the weight limit.
      */
 
-    public List<Transfer> getCheapestTransferRoute(List<Transfer> transfers, int maxWeight) {
+    public List<Transfer> getCheapestTransferRoute(List<Transfer> transfers, double maxWeight) {
         // dimensions for the dp table.
         int row = transfers.size() + 1;
-        int column = maxWeight + 1;
+        int column = (int) (maxWeight + 1) * SCALING_FACTOR;
 
-        int[][] dp = new int[row][column];
+        double[][] dp = new double[row][column];
 
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < column; c++) {
                 //Knapsack logic
                 if (r == 0 || c == 0) {
                     dp[r][c] = 0;
-                } else if (transfers.get(r - 1).getWeight() <= c) {
+                } else if (transfers.get(r - 1).getWeight() * SCALING_FACTOR <= c) {
                     dp[r][c] = Math.max(
-                            transfers.get(r - 1).getCost() + dp[r - 1][c - transfers.get(r-1).getWeight()],
+                            transfers.get(r - 1).getCost() + dp[r - 1][(int) (c - transfers.get(r-1).getWeight() * SCALING_FACTOR)],
                             dp[r - 1][c]
                     );
                 } else {

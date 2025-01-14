@@ -1,6 +1,7 @@
 package ge.zerobyte.cheapesttransferroute.api.responseHandlers;
 
 import ge.zerobyte.cheapesttransferroute.model.Transfer;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,18 +20,18 @@ import java.util.List;
 @Service
 public class TransferCommand {
 
-    public int getTotalCost(List<Transfer> transfers) {
-        int sum = 0;
-        for(int i=0; i<transfers.size(); i++) {
-           sum += transfers.get(i).getCost();
+    public double getTotalCost(List<Transfer> transfers) {
+        double sum = 0;
+        for (Transfer transfer : transfers) {
+            sum += transfer.getCost();
         }
         return sum;
     }
 
-    public int getTotalWeight(List<Transfer> transfers) {
-        int sum = 0;
-        for(int i=0; i<transfers.size(); i++) {
-            sum += transfers.get(i).getWeight();
+    public double getTotalWeight(List<Transfer> transfers) {
+        double sum = 0;
+        for (Transfer transfer : transfers) {
+            sum += transfer.getWeight();
         }
         return sum;
     }
@@ -40,8 +41,8 @@ public class TransferCommand {
             return new ResponseData(transfers, 0);
         }
 
-        int totalCost = this.getTotalCost(transfers);
-        int totalWeight = this.getTotalWeight(transfers);
+        double totalCost = this.getTotalCost(transfers);
+        double totalWeight = this.getTotalWeight(transfers);
         return new ResponseData(transfers, totalCost, totalWeight);
     }
 

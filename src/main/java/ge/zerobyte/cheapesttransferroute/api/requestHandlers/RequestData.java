@@ -16,13 +16,13 @@ import java.util.List;
 
 
 public class RequestData {
-    private int maxWeight;
+    private double maxWeight;
     private List<Transfer> availableTransfers;
 
 
     public RequestData(){}
 
-    public RequestData(int maxWeight, List<Transfer> availableTransfers) {
+    public RequestData(double maxWeight, List<Transfer> availableTransfers) {
         this.maxWeight = maxWeight;
         this.availableTransfers = availableTransfers;
     }
@@ -36,7 +36,7 @@ public class RequestData {
         this.availableTransfers = availableTransfers;
     }
 
-    public int getMaxWeight() {
+    public double getMaxWeight() {
         return maxWeight;
     }
 

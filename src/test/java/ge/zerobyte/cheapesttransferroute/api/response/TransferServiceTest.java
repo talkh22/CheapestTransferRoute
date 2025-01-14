@@ -33,7 +33,7 @@ class TransferServiceTest {
     }
 
     @Test
-    void itShouldFindTheCheapestTransferRouteTransfersEasy() {
+    void itShouldFindTheCheapestTransferRoute_Easy() {
         // Given
         List<Transfer> transfers = new ArrayList<>();
         transfers.add(new Transfer(5, 10));
@@ -58,7 +58,7 @@ class TransferServiceTest {
     }
 
     @Test
-    void itShouldFindTheCheapestTransferRouteTransfersMedium() {
+    void itShouldFindTheCheapestTransferRoute_Medium() {
         // Given
         List<Transfer> transfers = Arrays.asList(
                 new Transfer(2, 3),
@@ -84,7 +84,7 @@ class TransferServiceTest {
     }
 
     @Test
-    void itShouldFindTheCheapestTransferRouteTransfersHard() {
+    void itShouldFindTheCheapestTransferRoute_Hard() {
         // Given
         List<Transfer> transfers = Arrays.asList(
                 new Transfer(1, 1),
@@ -107,7 +107,31 @@ class TransferServiceTest {
                 new Transfer(3, 10),
                 new Transfer(7, 25)
         );
-        int totalCost = 35;
+
+        assertEquals(serviceAnswer,correctAnswer);
+
+    }
+
+    @Test
+    void itShouldFindTheCheapestTransferRoute_WithFractionWeights() {
+        // Given
+        List<Transfer> transfers = Arrays.asList(
+                new Transfer(5.22, 1),
+                new Transfer(7.44, 6),
+                new Transfer(8.53, 10)
+        );
+        double max_weight = 14.5;
+
+        // When
+        TransferService ts = new TransferService();
+
+        List<Transfer> serviceAnswer = ts.getCheapestTransferRoute(transfers, max_weight);
+
+        // Then
+        List<Transfer> correctAnswer = Arrays.asList(
+                new Transfer(5.22, 1),
+                new Transfer(8.53, 10)
+        );
 
         assertEquals(serviceAnswer,correctAnswer);
 

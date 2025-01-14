@@ -24,7 +24,7 @@ class TransferCommandTest {
         // When
 
         TransferCommand tc = new TransferCommand();
-        int totalCost = tc.getTotalCost(transfers);
+        double totalCost = tc.getTotalCost(transfers);
 
         // Then
         assertEquals(totalCost, 24);
@@ -45,7 +45,7 @@ class TransferCommandTest {
         // When
 
         TransferCommand tc = new TransferCommand();
-        int totalWeight = tc.getTotalWeight(transfers);
+        double totalWeight = tc.getTotalWeight(transfers);
 
         // Then
         assertEquals(totalWeight, 28);

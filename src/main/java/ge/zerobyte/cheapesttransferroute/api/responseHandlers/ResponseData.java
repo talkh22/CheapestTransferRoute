@@ -13,8 +13,8 @@ import java.util.List;
 public class ResponseData {
 
     private List<Transfer> selectedTransfers;
-    private int totalCost;
-    private int totalWeight;
+    private double totalCost;
+    private double totalWeight;
 
     public ResponseData() {}
 
@@ -24,13 +24,13 @@ public class ResponseData {
         this.totalWeight = 0;
     }
 
-    public ResponseData(List<Transfer> selectedTransfers, int totalCost, int totalWeight) {
+    public ResponseData(List<Transfer> selectedTransfers, double totalCost, double totalWeight) {
         this.selectedTransfers = selectedTransfers;
         this.totalCost = totalCost;
         this.totalWeight = totalWeight;
     }
 
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 
@@ -38,7 +38,7 @@ public class ResponseData {
         this.totalCost = totalCost;
     }
 
-    public int getTotalWeight() {
+    public double getTotalWeight() {
         return totalWeight;
     }
 

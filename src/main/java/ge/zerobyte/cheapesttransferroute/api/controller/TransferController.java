@@ -46,7 +46,7 @@ public class TransferController {
 
         // Extract the necessary information from the request.
         List<Transfer> availableTransfers = requestData.getAvailableTransfers();
-        int maxWeight = requestData.getMaxWeight();
+        double maxWeight = requestData.getMaxWeight();
 
         // Pass it to the service and get a result.
         List<Transfer> selectedTransfers = transferService.getCheapestTransferRoute(availableTransfers, maxWeight);
