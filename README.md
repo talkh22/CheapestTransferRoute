@@ -52,7 +52,9 @@ Built with Spring Boot, this project serves as a backend service for transfer op
 To run the project locally, you can follow these steps: 
   1. Clone the repository to your local machine: https://github.com/talkh22/CheapestTransferRoute.git 
   2. Navigate to the project directory: /CheapestTransferRoute
-  3. Run the application through the command line:
+  3. Build the project through the command line:
+       ``` mvn clean install ```
+  4. Run the application through the command line:
       ``` mvn spring-boot:run ```
 
    Once the application is running, it will be accessible at: http://localhost:8080.
