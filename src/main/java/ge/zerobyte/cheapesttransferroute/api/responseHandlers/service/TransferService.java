@@ -19,6 +19,13 @@ public class TransferService {
 
     private static final int SCALING_FACTOR = 100;
 
+    private List<Transfer> left;
+
+    public TransferService() {
+        left = new ArrayList<>();
+    }
+
+
     /**
      * This method performs backtracking on the dynamic programming table to find the selected
      * transfers that make up the optimal solution.
@@ -36,6 +43,7 @@ public class TransferService {
 
         while(r>0 && c>0) {
             if(tableOfCosts[r][c] == tableOfCosts[r-1][c]) {
+                left.add(transfers.get(r-1));
                 r--;
             } else {
                 bestTransfers.add(transfers.get(r-1));
@@ -87,5 +95,9 @@ public class TransferService {
         List<Transfer> bestTransfers = getTransfersFromTable(dp, transfers);
 
         return bestTransfers;
+    }
+
+    public List<Transfer> getWhatsLeft() {
+        return left;
     }
 }

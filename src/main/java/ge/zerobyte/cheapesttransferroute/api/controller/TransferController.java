@@ -8,6 +8,7 @@ import ge.zerobyte.cheapesttransferroute.api.requestHandlers.validator.Validatio
 import ge.zerobyte.cheapesttransferroute.api.responseHandlers.service.TransferService;
 import ge.zerobyte.cheapesttransferroute.model.Transfer;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,6 +51,15 @@ public class TransferController {
 
         // Pass it to the service and get a result.
         List<Transfer> selectedTransfers = transferService.getCheapestTransferRoute(availableTransfers, maxWeight);
+
+        double totalWeight = transferCommand.getTotalWeight(selectedTransfers);
+
+        if(totalWeight < requestData.getMaxWeight()) {
+            List<Transfer> left = transferService.getWhatsLeft();
+            List<Transfer> selectedTransfers2 = transferService.getCheapestTransferRoute(left, maxWeight-totalWeight);
+            left.removeAll(selectedTransfers2);
+            selectedTransfers.addAll(selectedTransfers2);
+        }
 
         // Construct and return the response.
         ResponseData responseData = transferCommand.getResponseData(selectedTransfers);
